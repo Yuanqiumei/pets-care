@@ -1,0 +1,263 @@
+<template>
+  <div class="Header">
+    <div class="agileits-banner about-w3banner">
+      <div class="bnr-agileinfo">
+        <div class="banner-top w3layouts">
+          <div class="container">
+            <ul class="agile_top_section">
+              <li>
+                <p> Pets Care Website !</p>
+              </li>
+              <li>
+                <p><span class="glyphicon glyphicon-earphone"></span><i class="el-icon-phone-outline" aria-hidden="true"></i> +11 999 8888 7777 </p>
+              </li>
+              <li><a class="sign" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2"><i class="el-icon-d-arrow-right" aria-hidden="true"></i> Sign In</a>		
+              	</li>
+                        <el-dialog
+                      title="提示"
+                      :visible.sync="dialogVisible"
+                      width="30%"
+                      :before-close="handleClose">
+                      <form action="submit">
+                          <span class="emg">邮箱：</span>
+                          <input  class="inner" type="text" name="email" placeholder="请输入邮箱">
+                          <span class="emg">密码：</span>
+                          <input class="inner" type="text" name="password" placeholder="请输入密码">
+                          <router-link class="link" to="/home">无账号？去注册</router-link>
+                      </form>
+                      <span slot="footer" class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                      </span>
+                    </el-dialog>
+            </ul>
+          </div>
+        </div>
+        <div class="banner-w3text w3layouts">
+          <span>INSPIRED</span>
+          <span>BY</span>
+          <span>W3LAYOUTS</span>
+        </div>
+        <!-- navigation -->
+        <div class="top-nav w3-agiletop">
+          <div class="agile_inner_nav_w3ls">
+            <div class="navbar-header w3llogo">
+              <h3>
+                <span>Dog</span>
+                <span>Cat</span>
+                <span>Pet</span>
+                <span>Care</span>
+              </h3>
+              <h1><router-link class="font" to="/home">Pets Care</router-link></h1>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="w3menu navbar-left">
+                <h1>Pets Care</h1>
+                <ul class="nav navbar">
+                  <li class="bar"><router-link to="/home">Home</router-link></li>
+                  <li class="bar"><router-link to="/about" class="active">About</router-link></li>
+                  <li class="bar"><router-link to="/show">Show</router-link></li>
+                  <li class="bar">
+                    <router-link to="/careful" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span data-letters="Pages">Careful</span><span class="caret"></span>
+                    </router-link>
+                  </li>
+                  <li class="bar"><router-link to="/contact">Contact</router-link></li>
+                </ul>
+              </div>
+              <div class="w3ls-bnr-icons social-icon navbar-right">
+                <a href="#" class="social-button twitter"><i class="el el-icon-star-off"></i></a>
+                <a href="#" class="social-button facebook"><i class="el el-icon-circle-check"></i></a>
+                <a href="#" class="social-button google"><i class="el el-icon-news"></i></a>
+                <a href="#" class="social-button dribbble"><i class="el el-icon-rank"></i></a>
+              </div>
+              <div class="clearfix"> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Header',
+  data() {
+    return {
+      dialogVisible: false
+    };
+  },
+  methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    }
+  }
+}
+</script>
+
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+.Header {
+  background: url('../assets/images/a.jpg') no-repeat center;
+  background-size: cover;
+}
+.container {
+    height: 40px;
+}
+ul.agile_top_section {
+    list-style: none;
+    display: flex;
+    line-height: 1;
+    align-items: center;
+    color: white;
+}
+li {
+    width: 33.3%;
+    margin-top: 24px;
+}
+ul.agile_top_section a.sign {
+    background: #ff5722;
+    color: #fff;
+    font-size: 0.9em;
+    padding: 8px 1em;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-radius: 2px;
+}
+.banner-w3text.w3layouts {
+    margin-top: 200px;
+    letter-spacing: 12px;
+    color: coral;
+}
+h3 {
+    color: white;
+    letter-spacing: 24px;
+    line-height: 3;
+    font-size: 26px;
+}
+.font {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 32px;
+    font-weight: 700;
+    font-size: 48px;
+}
+.w3menu.navbar-left {
+    height: 100px;    
+    display: flex;
+    flex-direction: row;
+    width: 82%;
+    margin: 0 auto;
+}
+ul.nav.navbar {
+    display: flex;
+    list-style: none;
+    text-decoration: none;
+    margin-left: 65px;
+}
+h1 {
+    margin-top: 34px;
+    color: coral;
+}
+.bar {
+    width: 33.3%;
+    font-size: 22px;
+    margin: 25px;
+}
+.bar a {
+    text-decoration: none;
+    color: white;
+}
+.bar a:hover {
+    color: coral;
+}
+.social-icon a {
+    font-size: 0.9em;
+    color: #fff;
+    margin: 0 .5em;
+    border: 1px solid transparent;
+    width: 30px;
+    height: 28px;
+    display: inline-block;
+    text-align: center;
+    line-height: 2.2em;
+    position: relative;
+    z-index: 999;
+    padding: 12px;
+}
+a {
+    background-color: transparent;
+}
+.el {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.el :before {
+  color: #FF5722;
+}
+.social-icon a:hover:before {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border-color: #FF5722;
+}
+.social-icon a:before {
+    content: '';
+    display: block;
+    height: 28px;
+    width: 28px;
+    border: 1px solid #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    transition: .5s all;
+}
+div#bs-example-navbar-collapse-1 {
+    background-color: rgba(6, 6, 6, 0.47);
+}
+
+.w3ls-bnr-icons.social-icon.navbar-right {
+    margin-left: 60%;
+    padding-bottom: 20px;
+}
+
+/* dialog */
+form {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+.inner {
+    width: 50%;
+    margin: 0 auto;
+}
+.link {
+    text-decoration: none;
+    color: darkgray;
+    margin: 8px;
+}
+.emg {
+  margin: 6px;
+}
+</style>
