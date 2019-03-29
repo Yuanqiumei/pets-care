@@ -1,12 +1,18 @@
 <template>
     <div class="about">
-        about
+        <AboutContext />
     </div>
 </template>
 
 <script>
+
+import AboutContext from '@/view/About/components/aboutContext'
+
 export default {
-    name: 'About'
+    name: 'About',
+    components: {
+        AboutContext
+    }
 }
 </script>
 

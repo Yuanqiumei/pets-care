@@ -127,7 +127,7 @@ h3.agileits-title {
 }
 .agileits-icon-grid {
     padding: 1.5em 1em;
-    box-shadow: 0 0px 1px rgb(247, 244, 244), 0 1px 2px rgba(236, 236, 236, 0.24);
+    box-shadow: 0 0px 1px red, 0 1px 2px red;
 }
 .icon-left {
     float: left;

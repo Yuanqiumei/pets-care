@@ -23,4 +23,7 @@ export default {
 .clearfix:after, .dl-horizontal dd:after, .container:after, .container-fluid:after, .row:after, .form-horizontal .form-group:after, .btn-toolbar:after, .btn-group-vertical > .btn-group:after, .nav:after, .navbar:after, .navbar-header:after, .navbar-collapse:after, .pager:after, .panel-body:after, .modal-footer:after {
     clear: both;
 }
+@media (min-width: width 1120px) {}
+@media (min-width: width 970px) {}
+@media (min-width: width 750px) {}
 </style>

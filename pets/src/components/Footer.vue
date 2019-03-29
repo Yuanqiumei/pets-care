@@ -4,12 +4,13 @@
       <div class="container">
         <div class="top-nav bottom-w3lnav">
           <ul>
-            <li><router-link to="/home">Home</router-link></li>
-            <li><router-link to="/About">About</router-link></li>
-            <li><router-link to="/Show">Show</router-link></li>
-            <li><router-link to="/Careful">Careful</router-link></li>
-            <li><router-link to="/home">Typography</router-link></li>
-            <li><router-link to="/Contact">Contact</router-link></li>
+            <li 
+                    class="linkTo"
+                    v-for="(item,index) in items"
+                    :key="index"
+                    :class="{active:istrue==index}"
+                    @click="istrue=index"
+                  ><router-link :to="{name:item.routerName}">{{item.name}}</router-link></li>
           </ul>
         </div>
       </div>
@@ -27,7 +28,30 @@ export default {
   data() {
     return {
       scrollTop: "",
-      goTopShow: false
+      goTopShow: false,
+       istrue: 0,
+      items: [
+        {
+          routerName: 'Home',
+          name: "Home"
+        },
+        {
+          routerName: 'About',
+          name: "About"
+        },
+        {
+          routerName: 'Show',
+          name: "Show"
+        },
+        {
+          routerName: "Careful",
+          name: "Careful"
+        },
+        {
+          routerName: "Contact",
+          name: "Contact"
+        }
+      ]
     };
   },
   watch: {
@@ -77,13 +101,20 @@ export default {
 
 
 <style scoped>
+.linkTo:link,
+.linkTo:visited {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  background-color: transparent;
+}
 .copy-w3right {
   background: #191919;
   padding: 1.5em 0;
   text-align: center;
 }
 .container {
-  width: 1170px;
+  width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;

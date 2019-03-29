@@ -14,7 +14,7 @@
               <li><a class="sign" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2"><i class="el-icon-d-arrow-right" aria-hidden="true"></i> Sign In</a>		
               	</li>
                         <el-dialog
-                      title="提示"
+                      title="登录"
                       :visible.sync="dialogVisible"
                       width="30%"
                       :before-close="handleClose">
@@ -22,12 +22,12 @@
                           <span class="emg">邮箱：</span>
                           <input  class="inner" type="text" name="email" placeholder="请输入邮箱">
                           <span class="emg">密码：</span>
-                          <input class="inner" type="text" name="password" placeholder="请输入密码">
-                          <router-link class="link" to="/home">无账号？去注册</router-link>
+                          <input class="inner" type="text" name="password" @keyup.enter="login()" placeholder="请输入密码">
+                          <div class="link" @click="noneStyle(dialogVisible = false)">无账号？去注册</div>
                       </form>
                       <span slot="footer" class="dialog-footer">
                         <el-button @click="dialogVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                        <el-button type="primary" @click="login(dialogVisible = false)">登录</el-button>
                       </span>
                     </el-dialog>
             </ul>
@@ -55,15 +55,13 @@
               <div class="w3menu navbar-left">
                 <h1>Pets Care</h1>
                 <ul class="nav navbar">
-                  <li class="bar"><router-link to="/home">Home</router-link></li>
-                  <li class="bar"><router-link to="/about" class="active">About</router-link></li>
-                  <li class="bar"><router-link to="/show">Show</router-link></li>
-                  <li class="bar">
-                    <router-link to="/careful" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                      <span data-letters="Pages">Careful</span><span class="caret"></span>
-                    </router-link>
-                  </li>
-                  <li class="bar"><router-link to="/contact">Contact</router-link></li>
+                  <li 
+                    class="bar a"
+                    v-for="(item,index) in items"
+                    :key="index"
+                    :class="{active:istrue==index}"
+                    @click="istrue=index"
+                  ><router-link :to="{name:item.routerName}">{{item.name}}</router-link></li>
                 </ul>
               </div>
               <div class="w3ls-bnr-icons social-icon navbar-right">
@@ -87,16 +85,49 @@ export default {
   name: 'Header',
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      istrue: 0,
+      items: [
+        {
+          routerName: 'Home',
+          name: "Home"
+        },
+        {
+          routerName: 'About',
+          name: "About"
+        },
+        {
+          routerName: 'Show',
+          name: "Show"
+        },
+        {
+          routerName: "Careful",
+          name: "Careful"
+        },
+        {
+          routerName: "Contact",
+          name: "Contact"
+        }
+      ]
     };
   },
   methods: {
+    // 提示框方法
     handleClose(done) {
       this.$confirm('确认关闭？')
         .then(_ => {
           done();
         })
         .catch(_ => {});
+    },
+    // 跳转到注册
+    noneStyle() {
+      this.$router.push( '/register' )
+      dialogVisible: false
+    },
+    // 登录
+    login() {
+
     }
   }
 }
@@ -104,6 +135,29 @@ export default {
 
 
 <style scoped>
+.active {
+  background-color: #FF5722;
+  border-radius: 12px;
+  padding: 8px;
+  height: 30px;
+  color: #fff;
+  line-height: 1.3;
+}
+.a:link,
+.a:visited {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  background-color: transparent;
+}
+.a:hover {
+  background-color: #FF5722;
+  border-radius: 12px;
+  padding: 8px;
+  height: 30px;
+  color: #fff;
+  line-height: 1.3;
+}
 a {
   text-decoration: none;
 }
@@ -131,6 +185,7 @@ ul.agile_top_section a.sign {
     font-size: 0.9em;
     padding: 8px 1em;
     text-decoration: none;
+    width: 200px;
     letter-spacing: 2px;
     border-radius: 2px;
 }

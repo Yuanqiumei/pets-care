@@ -6,6 +6,8 @@ import About from '@/view/About/about'
 import Show from '@/view/Show/show'
 import Careful from '@/view/Careful/careful'
 import Contact from '@/view/Contact/contact'
+import Register from '@/view/register'
+
 
 Vue.use(Router)
 
@@ -80,6 +82,11 @@ export default new Router({
           component: Contact
         }
       ]
+    },
+    {
+      name: 'Register',
+      path:'/register',
+      component: Register
     }
   ]
 })
