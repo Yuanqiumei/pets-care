@@ -2,17 +2,6 @@
   <div class="Footer">
     <div class="copy-w3right">
       <div class="container">
-        <div class="top-nav bottom-w3lnav">
-          <ul>
-            <li
-                    class="linkTo"
-                    v-for="(item,index) in items"
-                    :key="index"
-                    :class="{active:istrue==index}"
-                    @click="istrue=index"
-                  ><router-link :to="{name:item.routerName}">{{item.name}}</router-link></li>
-          </ul>
-        </div>
       </div>
       <div>@YOU  Pet empowerment, pet love.</div>
     </div>
@@ -29,29 +18,7 @@ export default {
     return {
       scrollTop: "",
       goTopShow: false,
-       istrue: 0,
-      items: [
-        {
-          routerName: 'Home',
-          name: "Home"
-        },
-        {
-          routerName: 'About',
-          name: "About"
-        },
-        {
-          routerName: 'Show',
-          name: "Show"
-        },
-        {
-          routerName: "Careful",
-          name: "Careful"
-        },
-        {
-          routerName: "Contact",
-          name: "Contact"
-        }
-      ]
+      istrue: 0,
     };
   },
   watch: {
@@ -117,42 +84,6 @@ export default {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-}
-.top-nav.bottom-w3lnav {
-  background: none;
-  border-bottom: 1px solid #404040;
-  margin-bottom: 2em;
-  padding-bottom: 2em;
-}
-.top-nav {
-  z-index: 999;
-  background: rgba(6, 6, 6, 0.47);
-  padding: 1em 0;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-.top-nav ul li:nth-child(1) {
-  margin: 0;
-}
-.top-nav ul li {
-  margin: 0 0 0 1em;
-  display: inline-block;
-}
-.top-nav ul li a {
-  text-decoration: none;
-  letter-spacing: 4px;
-  font-size: 1.1em;
-  color: #fff;
-  position: relative;
-  font-weight: 400;
-  padding: 0.5em 1.1em;
-  display: inline-block;
-  border-radius: 2px;
-}
-.top-nav ul li a:hover {
-  color: #ff5722;
 }
 
 .goTop {

@@ -21,6 +21,8 @@
 </template>
 
 <script>
+
+import { setCookie,getCookie,clearCookie } from '@/config/cookieUtil'
 export default {
     name: 'Contact',
     data() {
@@ -35,9 +37,25 @@ export default {
     },
     methods: {
       onSubmit() {
+        const params = {
+          phone: this.formLabelAlign.Phone,
+          email: this.formLabelAlign.Email,
+          address: this.formLabelAlign.Address
+        }
+        var token = getCookie('token');
         var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;//邮箱正则表达式
         var num = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;//手机正则表达式
-        if (!num.test(this.formLabelAlign.Phone)) {
+        if (token == null || token == '' || token == undefined ) {
+          this.$confirm('Please login first', {
+              dangerouslyUseHTMLString: true,
+              showCancelButton:false,
+              showClose: false
+          })
+         .then(()=>{
+           this.formLabelAlign = {}
+         })
+
+        } else if (!num.test(this.formLabelAlign.Phone)) {
             this.$alert('The phone format is incorrect', {
                   dangerouslyUseHTMLString: true,
                   showCancelButton:false,
@@ -57,20 +75,20 @@ export default {
             });
         } else {
           var url = 'contact';
-          const params = {
-            phone: this.formLabelAlign.Phone,
-            email: this.formLabelAlign.Email,
-            address: this.formLabelAlign.Address
-          }
           this.$http
               .post(url,params)
               .then(res=>{
+                console.log(res)
                 this.$alert('Submit successfully', {
                       dangerouslyUseHTMLString: true,
                       showCancelButton:false,
                       showClose: false
-                });
+                })
+                .then(()=>{
+                  this.formLabelAlign = {}
+                })
               })
+
         }
       }
     }

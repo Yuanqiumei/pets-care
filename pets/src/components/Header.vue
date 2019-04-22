@@ -12,7 +12,7 @@
                 <p><span class="glyphicon glyphicon-earphone"></span><i class="el-icon-phone-outline" aria-hidden="true"></i> +11 999 8888 7777 </p>
               </li>
               <li>
-                <a class="sign" v-if="logined == 'login in'" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2">
+                <a class="sign" v-if="logined == 'Login in'" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2">
                   <i class="el-icon-d-arrow-right" aria-hidden="true"></i> {{logined}}
                 </a>
                 <div class="sign" @click="Logout" v-else>
@@ -20,7 +20,7 @@
                 </div>
               </li>
                         <el-dialog
-                            title="登录"
+                            title="Login"
                             :visible.sync="dialogVisible"
                             width="30%"
                             :before-close="handleClose">
@@ -87,6 +87,7 @@
 
 <script>
 
+
 import { setCookie,getCookie,clearCookie } from '@/config/cookieUtil'
 
 export default {
@@ -143,6 +144,14 @@ export default {
       var token = getCookie('token');
       if(token == null || token == '' || token == undefined ) {
         this.logined = 'Login in';
+        this.$confirm('Please login first', {
+            dangerouslyUseHTMLString: true,
+            showCancelButton:false,
+            showClose: false
+        })
+        .then(()=>{
+          this.dialogVisible = true;
+        })
       } else {
         this.logined = 'Logout'
       }

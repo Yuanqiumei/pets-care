@@ -8,6 +8,7 @@
         ref="upload"
         action="http://localhost:8080/SpringmvcMybatis/uploadFile"
         :on-success="handleSuccess"
+        :on-error="handleFail"
         :show-file-list="false"
         :auto-upload="true">
         <el-button slot="trigger" size="small" type="primary">Choose your File...</el-button>
@@ -24,6 +25,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: 'fuFoot',
     data() {
@@ -33,7 +36,14 @@ export default {
     },
     methods: {
       handleSuccess(file, fileList) {
-        this.$confirm('Upload success', {
+        this.$confirm('Upload Successfully', {
+            dangerouslyUseHTMLString: true,
+            showCancelButton:false,
+            showClose:false
+        })
+      },
+      handleFail(err, file, fileList) {
+        this.$confirm('Upload Failly', {
             dangerouslyUseHTMLString: true,
             showCancelButton:false,
             showClose:false
@@ -50,7 +60,7 @@ a {
 .subscribe {
     text-align: center;
     background: #292929;
-    padding-bottom: 4em;
+    padding-bottom: 2em;
 }
 .container {
     width: 92%;
