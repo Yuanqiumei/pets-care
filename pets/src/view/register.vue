@@ -50,7 +50,8 @@ export default {
             if(!reg.test(this.ruleForm.name)){
                 this.$alert('The mailbox format is incorrect', {
                             dangerouslyUseHTMLString: true,
-                            showCancelButton:false
+                            showCancelButton:false,
+                            showClose: false
                 });
             } else{
                 var url = 'user/regist';
@@ -58,13 +59,13 @@ export default {
                     user_email: this.ruleForm.name,
                     password: this.ruleForm.pass
                 }
-                console.log(params)
                 this.$http
                     .post(url,params)
                     .then( res => {
                         this.$confirm('Regist Successfully', {
                             dangerouslyUseHTMLString: true,
-                            showCancelButton:false
+                            showCancelButton:false,
+                            showClose: false
                         })
                         .then(() =>{
                             this.$router.go(-1)

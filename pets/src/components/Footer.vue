@@ -4,7 +4,7 @@
       <div class="container">
         <div class="top-nav bottom-w3lnav">
           <ul>
-            <li 
+            <li
                     class="linkTo"
                     v-for="(item,index) in items"
                     :key="index"
@@ -115,8 +115,6 @@ export default {
 }
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }

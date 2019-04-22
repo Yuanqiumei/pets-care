@@ -2,12 +2,16 @@
     <div class="fuFoot">
         <div class="subscribe wthree-sub">
 		<div class="container">
-			<h4>Subscribe Now</h4>
-			<form action="#" method="post">
-				<input type="email" name="email" placeholder="Enter your Email..." required="">
-				<input type="submit" value="Subscribe">
-				<div class="clearfix"> </div>
-			</form>
+			<h4>Submit your views in a documented manner</h4>
+      <el-upload
+        class="upload-demo"
+        ref="upload"
+        action="http://localhost:8080/SpringmvcMybatis/uploadFile"
+        :on-success="handleSuccess"
+        :show-file-list="false"
+        :auto-upload="true">
+        <el-button slot="trigger" size="small" type="primary">Choose your File...</el-button>
+      </el-upload>
 			<div class="w3lsfoter-icons social-icon">
 				<a href="#" class="social-button twitter"><i class="el el-icon-star-off"></i></a>
                 <a href="#" class="social-button facebook"><i class="el el-icon-circle-check"></i></a>
@@ -21,7 +25,21 @@
 
 <script>
 export default {
-    name: 'fuFoot'
+    name: 'fuFoot',
+    data() {
+      return {
+        file:''
+      }
+    },
+    methods: {
+      handleSuccess(file, fileList) {
+        this.$confirm('Upload success', {
+            dangerouslyUseHTMLString: true,
+            showCancelButton:false,
+            showClose:false
+        })
+      }
+    }
 }
 </script>
 
@@ -54,18 +72,32 @@ h4 {
 h4, .h4 {
     font-size: 18px;
 }
+.upload-demo {
+    margin: 25px;
+}
+button.el-button.el-button--primary.el-button--small {
+    background-color: #FF5722;
+    width: 200px;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    border: 1px solid white;
+    letter-spacing: 1px;
+}
+
 .subscribe form {
     width: 50%;
     margin: 3em auto 2em;
     display: flex;
 }
-.subscribe form:hover input[type="email"] {
+.subscribe form:hover input[type="file"] {
     border-color: #FF5722;
 }
-.subscribe input[type="email"] {
+.subscribe input[type="file"] {
     width: 75%;
     padding: .8em 1em;
     font-size: 1em;
+    /* opacity: 0; */
     float: left;
     color: #fff;
     outline: none;

@@ -14,7 +14,7 @@
               <li>
                 <a class="sign" v-if="logined == 'login in'" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2">
                   <i class="el-icon-d-arrow-right" aria-hidden="true"></i> {{logined}}
-                </a>		
+                </a>
                 <div class="sign" @click="Logout" v-else>
                   <i class="el-icon-d-arrow-right"  aria-hidden="true"></i> {{logined}}
                 </div>
@@ -61,7 +61,7 @@
               <div class="w3menu navbar-left">
                 <h1>Pets Care</h1>
                 <ul class="nav navbar">
-                  <li 
+                  <li
                     class="bar a"
                     v-for="(item,index) in items"
                     :key="index"
@@ -146,7 +146,7 @@ export default {
       } else {
         this.logined = 'Logout'
       }
-      
+
     },
     // 登录
     login() {
@@ -156,7 +156,7 @@ export default {
         password: this.user.password
       }
       var url = 'user/login';
-      this.$http.post(url,params) 
+      this.$http.post(url,params)
                 .then( res => {
                     // console.log('loginde',res.data)
                     if(res.data.code == "0000" ) {
@@ -288,7 +288,7 @@ h3 {
     font-size: 48px;
 }
 .w3menu.navbar-left {
-    height: 100px;    
+    height: 100px;
     display: flex;
     flex-direction: row;
     width: 82%;
@@ -385,6 +385,7 @@ form {
 }
 .inner {
     width: 50%;
+    outline: none;
     margin: 0 auto;
     padding: 8px 8px;
     border: 1px solid gainsboro;

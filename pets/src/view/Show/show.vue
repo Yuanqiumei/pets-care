@@ -1,12 +1,19 @@
 <template>
     <div class="show">
         <div class="container">
+            <h3 class="agileits-title">File download</h3>
+            <div class="showDownFile">
+              <div class="showFile"  v-for="(item,index) in file" :key="index">
+                <img class="file" :src="item.img" alt="">
+                <button class="download" @click="Download(item.file)">Download</button>
+              </div>
+            </div>
             <h3 class="agileits-title">Our Show</h3>
             <div class="gallery-agileinfo" v-for="(item,index) in list" :key="index">
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div class="figure">
                         <div class="img">
-                            <img :src="item.img1" alt="" title="Pets Care Image"/> 
+                            <img :src="item.img1" alt="" title="Pets Care Image"/>
                         </div>
                         <div class="agile-figcaption">
                             <h4>{{item.title}}</h4>
@@ -17,8 +24,8 @@
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div href="#" class="figure">
                          <div class="img">
-                            <img :src="item.img2" alt="" title="Pets Care Image"/> 
-                        </div> 
+                            <img :src="item.img2" alt="" title="Pets Care Image"/>
+                        </div>
                         <div class="agile-figcaption">
                         <h4>{{item.title}}</h4>
                         <p>{{item.detail1}}</p>
@@ -28,8 +35,8 @@
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div href="#" class="figure">
                          <div class="img">
-                            <img :src="item.img3" alt="" title="Pets Care Image"/> 
-                        </div> 
+                            <img :src="item.img3" alt="" title="Pets Care Image"/>
+                        </div>
                         <div class="agile-figcaption">
                             <h4>{{item.title}}</h4>
                             <p>{{item.detail2}}</p>
@@ -39,7 +46,7 @@
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div href="#" class="figure">
                          <div class="img">
-                            <img :src="item.img4" alt="" title="Pets Care Image"/> 
+                            <img :src="item.img4" alt="" title="Pets Care Image"/>
                         </div>
                         <div class="agile-figcaption">
                         <h4>{{item.title}}</h4>
@@ -50,8 +57,8 @@
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div href="#" class="figure">
                          <div class="img">
-                            <img :src="item.img5" alt="" title="Pets Care Image"/> 
-                        </div> 
+                            <img :src="item.img5" alt="" title="Pets Care Image"/>
+                        </div>
                         <div class="agile-figcaption">
                         <h4>{{item.title}}</h4>
                         <p>{{item.detail4}}</p>
@@ -61,7 +68,7 @@
                 <div class="col-sm-4 col-xs-6 w3gallery-grids">
                     <div href="#" class="figure">
                          <div class="img">
-                            <img :src="item.img1" alt="" title="Pets Care Image"/> 
+                            <img :src="item.img1" alt="" title="Pets Care Image"/>
                         </div>
                         <div class="agile-figcaption">
                         <h4>{{item.title}}</h4>
@@ -96,8 +103,41 @@ export default {
           detail4:"Recognize the responsibilities and obligations of caregivers, such as regular feeding, regular walking, bathing according to agreement, emergency treatment, etc.",
           detail5:"Professional care, so that you can travel carefree, encounter special conditions, professional personnel and equipment will also be dangerous."
         }
+      ],
+      file: [
+        {
+          img: require('../../assets/images/file.png'),
+          file: 'file.png'
+        },
+        {
+          img: require('../../assets/images/file2.png'),
+          file: 'file2.png'
+        }
       ]
     };
+  },
+  methods: {
+    Download(file) {
+      var url = 'http://localhost:8080/SpringmvcMybatis/download?fileName=' + file;
+      window.location.href = url
+    //   this.$http
+    //       .get(url)
+    //       .then( res => {
+    //         // window.location.href = url
+    //           // let blob = new Blob([res], { type: 'application/vnd.*' })//定义文件后缀名
+    //           // let downloadElement = document.createElement('a')//插入一个a标签
+    //           // let href = URL.createObjectURL(blob)//创建a标签的url
+    //           // downloadElement.href = href //赋值
+    //           // downloadElement.download = file //自定义文件名，此处默认文件名
+    //           // document.body.appendChild(downloadElement)
+    //           // downloadElement.click()//下载
+    //           // document.body.removeChild(downloadElement)
+    //           // window.URL.revokeObjectURL(href)
+    //       })
+    }
+  },
+  created() {
+
   }
 };
 </script>
@@ -119,6 +159,33 @@ a {
 .container {
   width: 100%;
   margin: 0 auto;
+}
+.showDownFile {
+  display: flex;
+}
+.showFile {
+  width: 50%;
+  text-align: center;
+  margin: 25px;
+  clear: both;
+}
+.file {
+  width: 90%;
+  height: 230px;
+  vertical-align: middle;
+  border: 0;
+}
+.download {
+  background-color: aquamarine;
+  padding: 12px;
+  outline: none;
+  border: oldlace;
+  font-size: 16px;
+  letter-spacing: 0.78px;
+  font-weight: 600;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 12px;
 }
 h3.agileits-title {
   font-size: 3em;
@@ -152,7 +219,6 @@ img {
 }
 .gallery-agileinfo {
   width: 100%;
-  padding: 15px;
 }
 .figure {
   transition: 0.6s;
