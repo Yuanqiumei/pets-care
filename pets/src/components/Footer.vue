@@ -168,6 +168,7 @@ ul {
     background: bisque;
     padding: 10px;
     cursor: pointer;
+    text-align: center;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
 }
 .goTop:hover .goTopIcon {

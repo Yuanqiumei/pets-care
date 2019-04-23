@@ -11,25 +11,31 @@
               <li>
                 <p><span class="glyphicon glyphicon-earphone"></span><i class="el-icon-phone-outline" aria-hidden="true"></i> +11 999 8888 7777 </p>
               </li>
-              <li><a class="sign" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2"><i class="el-icon-d-arrow-right" aria-hidden="true"></i> Sign In</a>		
-              	</li>
+              <li>
+                <a class="sign" v-if="logined == 'login in'" href="#" data-toggle="modal" @click="dialogVisible = true" data-target="#myModal2">
+                  <i class="el-icon-d-arrow-right" aria-hidden="true"></i> {{logined}}
+                </a>		
+                <div class="sign" @click="Logout" v-else>
+                  <i class="el-icon-d-arrow-right"  aria-hidden="true"></i> {{logined}}
+                </div>
+              </li>
                         <el-dialog
-                      title="登录"
-                      :visible.sync="dialogVisible"
-                      width="30%"
-                      :before-close="handleClose">
-                      <form action="submit">
-                          <span class="emg">邮箱：</span>
-                          <input  class="inner" type="text" name="email" placeholder="请输入邮箱">
-                          <span class="emg">密码：</span>
-                          <input class="inner" type="text" name="password" @keyup.enter="login()" placeholder="请输入密码">
-                          <div class="link" @click="noneStyle(dialogVisible = false)">无账号？去注册</div>
-                      </form>
-                      <span slot="footer" class="dialog-footer">
-                        <el-button @click="dialogVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="login(dialogVisible = false)">登录</el-button>
-                      </span>
-                    </el-dialog>
+                            title="登录"
+                            :visible.sync="dialogVisible"
+                            width="30%"
+                            :before-close="handleClose">
+                        <form action="submit">
+                            <span class="emg">Email：</span>
+                            <input  class="inner" type="text" name="email" v-model="user.userEmail" placeholder="请输入邮箱">
+                            <span class="emg">Password：</span>
+                            <input class="inner" type="password" name="password" v-model="user.password" @keyup.enter="login()" placeholder="请输入密码">
+                            <div class="link" @click="noneStyle(dialogVisible = false)">No account? To register</div>
+                        </form>
+                        <span slot="footer" class="dialog-footer">
+                          <el-button @click="dialogVisible = false">Cancel</el-button>
+                          <el-button type="primary" @click="login(dialogVisible = false)">Login</el-button>
+                        </span>
+                      </el-dialog>
             </ul>
           </div>
         </div>
@@ -81,6 +87,8 @@
 
 <script>
 
+import { setCookie,getCookie,clearCookie } from '@/config/cookieUtil'
+
 export default {
   name: 'Header',
   data() {
@@ -108,7 +116,12 @@ export default {
           routerName: "Contact",
           name: "Contact"
         }
-      ]
+      ],
+      logined:'',
+      user: {
+        userEmail:'',
+        password: ''
+      }
     };
   },
   methods: {
@@ -125,16 +138,69 @@ export default {
       this.$router.push( '/register' )
       dialogVisible: false
     },
+    //判断是否登录
+    inspectLogin() {
+      var token = getCookie('token');
+      if(token == null || token == '' || token == undefined ) {
+        this.logined = 'Login in';
+      } else {
+        this.logined = 'Logout'
+      }
+      
+    },
     // 登录
     login() {
+      // console.log(this.user);
+      var params = {
+        user_email: this.user.userEmail,
+        password: this.user.password
+      }
+      var url = 'user/login';
+      this.$http.post(url,params) 
+                .then( res => {
+                    // console.log('loginde',res.data)
+                    if(res.data.code == "0000" ) {
+                        this.$alert('Login Successfully', {
+                            dangerouslyUseHTMLString: true,
+                            showCancelButton:false
+                        });
+                        this.logined = 'Logout';
+                        setCookie('token',res.data.result.user_email);
+                        this.user = '';
+                    } else {
+                        this.$alert('Is the login information correct?', {
+                            dangerouslyUseHTMLString: true,
+                            showCancelButton:false
+                        });
+                    }
+                })
 
+    },
+    //退出登录
+    Logout() {
+      clearCookie('token');
+      this.$alert('Logout Successfully', {
+          dangerouslyUseHTMLString: true,
+          showCancelButton:false
+      });
+      this.logined = 'login in'
     }
+  },
+  created() {
+    this.inspectLogin();
   }
 }
 </script>
 
 
 <style scoped>
+.el-dialog__body {
+    padding: 0;
+    color: #606266;
+    font-size: 14px;
+    margin: 0;
+}
+
 .active {
   background-color: #FF5722;
   border-radius: 12px;
@@ -174,6 +240,7 @@ ul.agile_top_section {
     line-height: 1;
     align-items: center;
     color: white;
+    text-align: center;
 }
 li {
     width: 33.3%;
@@ -189,10 +256,23 @@ ul.agile_top_section a.sign {
     letter-spacing: 2px;
     border-radius: 2px;
 }
+.sign {
+    background: #ff5722;
+    color: #fff;
+    font-size: 0.9em;
+    padding: 8px 1em;
+    width: 200px;
+    letter-spacing: 2px;
+    border-radius: 2px;
+}
 .banner-w3text.w3layouts {
     margin-top: 200px;
     letter-spacing: 12px;
     color: coral;
+    text-align: center;
+}
+.navbar-header.w3llogo {
+    text-align: center;
 }
 h3 {
     color: white;
@@ -299,20 +379,35 @@ div#bs-example-navbar-collapse-1 {
 /* dialog */
 form {
     width: 100%;
-    height: 80px;
+    height: 120px;
     display: flex;
     flex-direction: column;
 }
 .inner {
     width: 50%;
     margin: 0 auto;
+    padding: 8px 8px;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
 }
 .link {
     text-decoration: none;
-    color: darkgray;
+    color: burlywood;
     margin: 8px;
+    text-align: right;
 }
 .emg {
   margin: 6px;
 }
 </style>
+
+<style>
+
+.el-dialog__title {
+    line-height: 24px;
+    font-size: 22px;
+    color: dodgerblue;
+    letter-spacing: 20px;
+}
+</style>
+

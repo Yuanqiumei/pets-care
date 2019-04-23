@@ -6,11 +6,11 @@
             </div>
             <div class="container">
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm login-container">
-                    <el-form-item label="email" prop="name">
-                        <el-input class="input" v-model="ruleForm.name"></el-input>
+                    <el-form-item  prop="name">
+                        <el-input class="input" placeholder="Email" v-model="ruleForm.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="password" prop="pass">
-                        <el-input  class="input" type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
+                    <el-form-item  prop="pass">
+                        <el-input  class="input" placeholder="Password" type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="text" @click="cancel">cancel</el-button>
@@ -46,8 +46,31 @@ export default {
             this.$router.go(-1)
         },
         submitForm() {
-            alert('success');
-            this.$router.go(-1)
+            var reg=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            if(!reg.test(this.ruleForm.name)){
+                this.$alert('The mailbox format is incorrect', {
+                            dangerouslyUseHTMLString: true,
+                            showCancelButton:false
+                });
+            } else{
+                var url = 'user/regist';
+                const params = {
+                    user_email: this.ruleForm.name,
+                    password: this.ruleForm.pass
+                }
+                console.log(params)
+                this.$http
+                    .post(url,params)
+                    .then( res => {
+                        this.$confirm('Regist Successfully', {
+                            dangerouslyUseHTMLString: true,
+                            showCancelButton:false
+                        })
+                        .then(() =>{
+                            this.$router.go(-1)
+                        })
+                    })
+            }
         }
     }
 }
