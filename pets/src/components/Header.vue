@@ -92,6 +92,7 @@ import { setCookie,getCookie,clearCookie } from '@/config/cookieUtil'
 
 export default {
   name: 'Header',
+  inject: ['reload'],
   data() {
     return {
       dialogVisible: false,
@@ -174,7 +175,11 @@ export default {
                             showCancelButton:false
                         });
                         this.logined = 'Logout';
-                        setCookie('token',res.data.result.user_email);
+                        var user = {
+                          username: res.data.result.user_email,
+                          password: res.data.result.password
+                        }
+                        setCookie('token',user);
                         this.user = '';
                     } else {
                         this.$alert('Is the login information correct?', {
@@ -193,6 +198,7 @@ export default {
           showCancelButton:false
       });
       this.logined = 'login in'
+      this.reload()
     }
   },
   created() {

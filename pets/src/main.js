@@ -17,7 +17,7 @@ Vue.config.productionTip = false
 Vue.prototype.GLOBAL = global_;
 axios.defaults.baseURL=global_.BASE_URL;
 
-// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.withCredentials = true;
 Vue.prototype.$http = axios
 
 /* eslint-disable no-new */

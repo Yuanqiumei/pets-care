@@ -23,6 +23,7 @@
 <script>
 
 import { setCookie,getCookie,clearCookie } from '@/config/cookieUtil'
+
 export default {
     name: 'Contact',
     data() {
@@ -41,6 +42,11 @@ export default {
           phone: this.formLabelAlign.Phone,
           email: this.formLabelAlign.Email,
           address: this.formLabelAlign.Address
+        }
+        let config = {
+            headers: {
+              token: params
+          }
         }
         var token = getCookie('token');
         var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;//邮箱正则表达式
@@ -76,7 +82,7 @@ export default {
         } else {
           var url = 'contact';
           this.$http
-              .post(url,params)
+              .post(url,params,config)
               .then(res=>{
                 console.log(res)
                 this.$alert('Submit successfully', {

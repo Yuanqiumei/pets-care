@@ -60,7 +60,11 @@ export default {
                     password: this.ruleForm.pass
                 }
                 this.$http
-                    .post(url,params)
+                    .post(url,params,{
+                          headers: {
+                          token: params
+                      }
+                    })
                     .then( res => {
                         this.$confirm('Regist Successfully', {
                             dangerouslyUseHTMLString: true,
